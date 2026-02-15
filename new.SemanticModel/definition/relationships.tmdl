@@ -8,3 +8,8 @@ relationship d9405487-bc2a-466c-b712-4adb676f6df1
 	fromColumn: DimCustomer.DateFirstPurchase
 	toColumn: LocalDateTable_257c4f31-c30b-433d-af27-706ce4ce06c0.Date
 
+relationship bb95d2f4-9e53-47a4-9d65-4b9c1eeaff8b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: products.created_at
+	toColumn: LocalDateTable_5955c31a-16ba-46c8-bd26-7b86dacc3f99.Date
+

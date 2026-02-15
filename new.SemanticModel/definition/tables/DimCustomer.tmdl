@@ -1,6 +1,10 @@
 table DimCustomer
 	lineageTag: 2520104b-d160-43da-8a01-53586d6d8850
 
+	measure 'count of customers' = CALCULATE(COUNT(DimCustomer[CustomerKey]))
+		formatString: 0
+		lineageTag: 24486063-5339-4ecb-8cd1-448acf5b5662
+
 	column CustomerKey
 		dataType: int64
 		formatString: 0

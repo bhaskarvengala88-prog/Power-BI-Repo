@@ -1,0 +1,84 @@
+table products
+	lineageTag: 42fba731-274c-4368-a0a4-edc065a356c7
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 559aaa57-29f9-4568-b49f-78bc6ffb45d8
+		summarizeBy: sum
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: d7c5723f-e39e-49a9-ac33-cd9df1e45980
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: e0ad0cfb-7432-42d2-8964-8a51bb43e17b
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: double
+		lineageTag: 519fe64c-76b7-46cc-a38e-653ea818393e
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column stock_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 55d29622-6324-46aa-8862-663fd957dcd0
+		summarizeBy: sum
+		sourceColumn: stock_quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 892d1933-3a5a-4b2e-8e18-bba2ec24d277
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e769fbcf-8f7b-4181-867f-7e9b934c272b
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: bb95d2f4-9e53-47a4-9d65-4b9c1eeaff8b
+			defaultHierarchy: LocalDateTable_5955c31a-16ba-46c8-bd26-7b86dacc3f99.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition products = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Vengala Bhaskar\Downloads\products.txt"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"product_id", Int64.Type}, {"product_name", type text}, {"category", type text}, {"price", type number}, {"stock_quantity", Int64.Type}, {"is_active", type logical}, {"created_at", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
