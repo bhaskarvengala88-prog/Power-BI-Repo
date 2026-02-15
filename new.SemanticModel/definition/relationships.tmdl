@@ -1,0 +1,10 @@
+relationship 80855634-7e8b-4a33-a7ca-c7b58f62103c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimCustomer.BirthDate
+	toColumn: LocalDateTable_ca155ed4-a0a5-4a61-9e1a-fe2a5d97b40c.Date
+
+relationship d9405487-bc2a-466c-b712-4adb676f6df1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimCustomer.DateFirstPurchase
+	toColumn: LocalDateTable_257c4f31-c30b-433d-af27-706ce4ce06c0.Date
+

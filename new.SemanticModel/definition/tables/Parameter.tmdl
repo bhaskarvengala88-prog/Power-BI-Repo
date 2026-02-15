@@ -1,0 +1,51 @@
+table Parameter
+	lineageTag: 7dce1dc1-c323-44f1-96b8-697d282b789f
+
+	column Parameter
+		lineageTag: b28da053-fe65-46be-b43a-df2d1232c1c5
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: 94138a8f-c7a4-466a-9798-484ee272acc3
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 62b4a436-ff7b-4785-a362-3673b9cb3f5e
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter = calculated
+		mode: import
+		source =
+				{
+				    ("EmailAddress", NAMEOF('DimCustomer'[EmailAddress]), 0),
+				    ("EnglishEducation", NAMEOF('DimCustomer'[EnglishEducation]), 1),
+				    ("EnglishOccupation", NAMEOF('DimCustomer'[EnglishOccupation]), 2),
+				    ("FirstName", NAMEOF('DimCustomer'[FirstName]), 3),
+				    ("FrenchEducation", NAMEOF('DimCustomer'[FrenchEducation]), 4)
+				}
+
+	annotation PBI_Id = 3b5454fd22f244c1b1866fd51e8679b1
+
